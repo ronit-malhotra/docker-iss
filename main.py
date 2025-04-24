@@ -57,7 +57,7 @@ def write_to_mongo(dtime, long, lat):
         # use an ENV variable for the password
         dbpass = os.getenv('MONGOPASS')
         if not dbpass:
-            raise ValueError("MONGOPASS environment variable is not set")
+            raise ValueError("ERROR: MONGOPASS environment variable is not set")
             logging.error("MONGOPASS environment variable is not set")
             exit(1)
             
@@ -65,10 +65,10 @@ def write_to_mongo(dtime, long, lat):
         client = MongoClient(connection_string)
 
         # use your UVA computing ID for the database name
-        db = client['mst3k']
+        db = client['vxn4cm']
         collection = db['locations']
         collection.insert_one({'timestamp': dtime, 'longitude': long, 'latitude': lat})
-        logger.info('Output written to MongoDB')
+        logger.info('The data was successfully written to MongoDB')
     except Exception as e:
         logger.error(e)
         exit(1)
